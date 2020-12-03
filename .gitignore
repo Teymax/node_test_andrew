@@ -1,0 +1,8 @@
+.env
+node-test-6c868-firebase-adminsdk-sashz-cdee1754a9.json
+node_modules
+package-lock.json
+.idea
+/logs/error.log
+.nyc_output
+/config/config.json

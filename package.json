@@ -1,0 +1,40 @@
+{
+  "name": "node_api",
+  "version": "1.0.0",
+  "scripts": {
+    "start:dev": "cross-env NODE_ENV=development node start",
+    "start:prod": "cross-env NODE_ENV=production node start",
+    "test": "cross-env NODE_ENV=test nyc mocha --require @babel/register tests/**/*.spec.js --exit",
+    "migrate": "npx sequelize-cli db:seed:all"
+  },
+  "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.4.4",
+    "@babel/runtime": "^7.4.5",
+    "await-to-js": "^2.1.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "latest",
+    "cors": "latest",
+    "cross-env": "^5.2.0",
+    "dotenv": "^8.0.0",
+    "express": "latest",
+    "mysql2": "^1.6.5",
+    "parse-error": "^0.2.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.8.12",
+    "sequelize-cli": "^5.5.0",
+    "winston": "latest"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/register": "^7.4.4",
+    "babel-plugin-istanbul": "^5.1.4",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1"
+  }
+}
