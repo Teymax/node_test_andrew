@@ -10,7 +10,7 @@ module.exports = function (passport) {
   opts.secretOrKey = JWT_ENCRYPTION;
   passport.use(new Strategy(opts, async function (jwt_payload, done) {
     let err, user;
-    [err, user] = await to(User.findOne({where: {id: jwt_payload.user_id} }));
+    [err, user] = await to(User.findOne({where: {email: jwt_payload.user_email} }));
     if (err) return done(err, false);
     if (user) {
       return done(null, user);
