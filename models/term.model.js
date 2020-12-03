@@ -4,9 +4,7 @@ module.exports = (sequelize, DataTypes) => {
         content: DataTypes.STRING
     });
     Term.associate = function (models) {
-        Term.hasMany(models.user,{
-            foreignKey: 'userId'
-        })
+        Term.hasMany(models.user)
     };
     return Term;
 };
