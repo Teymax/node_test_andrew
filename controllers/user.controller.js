@@ -70,7 +70,18 @@ const logout = async (req, res) => {
   return success(res, {message: 'Successfull logout.'}, 200);
 };
 
+const isAvalaible = async (req, res) => {
+  let err, user;
+  [err, user] = await to(User.findAll({ where: { username: req.query.username } }));
+  if (err) return error(res, err.message, 400);
+  let isAvalaible;
+  if(!user[0]) isAvalaible = true;
+  else isAvalaible = false;
+  return res.send({"isAvalaible": isAvalaible});
+}
+
 exports.create = create;
 exports.login = login;
 exports.logout = logout;
 exports.update = update;
+exports.isAvalaible = isAvalaible;
