@@ -1,4 +1,4 @@
-const { throwError, to, error, success } = require('../utils/requestHelpers');
+const { to, error, success } = require('../utils/requestHelpers');
 const authService = require('../services/auth.service');
 import { user as User } from '../models';
 
