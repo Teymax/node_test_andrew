@@ -32,7 +32,8 @@ const update = async (req, res) => {
   let err, user;
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
-  [err, user] = await to(User.findOne({ email: authService.verify(token) }));
+  [err, user] = await to(User.findAll({where: { email: authService.verify(token)['user_email'] } }));
+  user = user[0];
   if (err) return error(res, err.message, 400);
   if(!user) return error(res, "no user found!", 400);
   if (req.body.username){
