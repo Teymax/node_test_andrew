@@ -7,6 +7,5 @@ require('../middleware/passport')(passport);
 router.post('/register', UserController.create);
 router.post('/login', UserController.login);
 router.post('/logout', UserController.logout);
-router.put('/update', passport.authenticate('jwt', {session:false}), UserController.update)
-
+router.put('/updateUser', passport.authenticate('jwt', {session:false}), UserController.update)
 module.exports = router;
