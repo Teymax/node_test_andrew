@@ -1,6 +1,9 @@
 {
   "name": "node_api",
   "version": "1.0.0",
+  "engines": {
+    "node": "13"
+  },
   "scripts": {
     "start:dev": "cross-env NODE_ENV=development node start",
     "start:prod": "cross-env NODE_ENV=production node start",
