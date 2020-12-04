@@ -5,7 +5,7 @@
     "node": "13"
   },
   "scripts": {
-    "start:dev": "cross-env NODE_ENV=development node start --experimental-modules",
+    "start": "cross-env NODE_ENV=development node start --experimental-modules",
     "start:prod": "cross-env NODE_ENV=production node start",
     "test": "cross-env NODE_ENV=test nyc mocha --require @babel/register tests/**/*.spec.js --exit",
     "migrate": "npx sequelize-cli db:seed:all"
