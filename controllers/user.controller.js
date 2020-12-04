@@ -1,6 +1,10 @@
 const { to, error, success } = require('../utils/requestHelpers');
 const authService = require('../services/auth.service');
 import { user as User } from '../models';
+const jwt = require('jsonwebtoken');
+
+const { JWT_ENCRYPTION } = process.env;
+const { JWT_EXPIRATION } = process.env;
 
 const create = async (req, res) => {
   res.setHeader('Content-Type', 'application/json');
@@ -81,8 +85,55 @@ const isAvalaible = async (req, res) => {
   return res.send({"isAvalaible": isAvalaible});
 }
 
+const  updateOrCreate = async (usercheck) => {
+  let err, user;
+  [err, user] = await to(User.findAll({where: {email:'thephantommr@gmail.com'} }));
+  user = user[0];
+  if (err) return err.message;
+  if (!user) {
+    [err] = await to(authService.register({
+      username: usercheck.name,
+      firstName: usercheck.name,
+      lastName: usercheck.family_name,
+      email: usercheck.email,
+      password: usercheck.email
+    }));
+    [err, user] = await to(authService.login({
+      username: usercheck.username,
+      email: usercheck.email,
+      password: usercheck.email
+    }));
+    return user;
+  }
+
+  [err, user] = await to(update({username: usercheck.username, email: usercheck.email, password: usercheck.email}));
+  return user;
+}
+
+const loginGoogle = async (req, res)=>{
+  let err, newUser;
+  let user = {
+    name: req.user.name.givenName,
+    family_name: req.user.name.familyName,
+    email: req.user._json.email,
+    provider: req.user.provider
+  };
+
+  [err, newUser] = await to(updateOrCreate(user));
+  if (err) return error(res, err.message, 400);
+  let access_token = jwt.sign({ user_email: user.email }, JWT_ENCRYPTION, {expiresIn: 3600});
+  let refresh_token = jwt.sign({user_id: user.id, user_email: user.email}, JWT_ENCRYPTION, { expiresIn: JWT_EXPIRATION});
+  return success(res, {access_token: access_token, refresh_token: refresh_token});
+}
+
+const loginFacebook = async (req, res)=>{
+
+}
+
 exports.create = create;
 exports.login = login;
 exports.logout = logout;
 exports.update = update;
 exports.isAvalaible = isAvalaible;
+exports.loginGoogle = loginGoogle;
+exports.loginFacebook = loginFacebook;
