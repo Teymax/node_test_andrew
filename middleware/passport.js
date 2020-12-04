@@ -48,7 +48,6 @@ module.exports = function (passport) {
         profileFields: ['id', 'displayName', 'email', 'picture']
       },
       function(accessToken, refreshToken, profile, done) {
-        console.log(profile)
         console.log("FACEBOOK BASED OAUTH VALIDATION GETTING CALLED")
         return done(null, profile)
       }));
